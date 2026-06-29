@@ -1,20 +1,32 @@
-# Stage 1: build
-FROM node:18 AS builder
+# Use Node:20 image
+FROM node:20 AS builder
 
+# Set the working directory inside the container
 WORKDIR /app
 
+# Copy package.json and package-lock.json
 COPY package*.json  ./
+
+# Install dependencies
 RUN npm install
 
-COPY . .
+# Copy the project files into the container
+COPY . ${WORKDIR}
+
+# Run the build command to create the production-ready files
 RUN npm run build
 
-# Stage 2: nginx
+# nginx - deploy the built files with nginx
 FROM nginx:stable-alpine-slim
+
+# Copy the nginx configuration file to the container etc/nginx directory. This configuration will serve the built Angular application.
 COPY nginx.conf /etc/nginx/nginx.conf
 
+# Copy the app from the build stage to the Nginx directory
 COPY --from=builder /app/dist/angular-conduit /usr/share/nginx/html
 
+# Expose port 80 to access the frontend
 EXPOSE 80
 
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
