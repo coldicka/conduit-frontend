@@ -21,9 +21,6 @@ RUN npm run build
 # nginx - deploy the built files with nginx
 FROM nginx:stable-alpine-slim
 
-# Copy the nginx configuration file to the container etc/nginx directory. This configuration will serve the built Angular application.
-# COPY nginx.conf /etc/nginx/nginx.conf
-
 # Copy the app from the build stage to the Nginx directory
 COPY --from=builder /app/dist/angular-conduit /usr/share/nginx/html
 
