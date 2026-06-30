@@ -1,3 +1,4 @@
+# --- Schritt 1: Build-Umgebung ---
 # Use Node:20 image
 FROM node:20 AS builder
 
@@ -16,11 +17,12 @@ COPY . ${WORKDIR}
 # Run the build command to create the production-ready files
 RUN npm run build
 
+# --- Schritt 2: Produktions-Server ---
 # nginx - deploy the built files with nginx
 FROM nginx:stable-alpine-slim
 
 # Copy the nginx configuration file to the container etc/nginx directory. This configuration will serve the built Angular application.
-COPY nginx.conf /etc/nginx/nginx.conf
+# COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy the app from the build stage to the Nginx directory
 COPY --from=builder /app/dist/angular-conduit /usr/share/nginx/html
