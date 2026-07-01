@@ -1,27 +1,35 @@
-# --- Schritt 1: Build-Umgebung ---
+# ==========================================
+# STAGE 1: Build the Angular Application
+# ==========================================
 # Use Node:20 image
 FROM node:20 AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json  ./
+# Copy package.json and package-lock.json in the container to install dependencies
+COPY package*.json  ${WORKDIR}
 
 # Install dependencies
 RUN npm install
 
-# Copy the project files into the container
+# Copy the project files rest into the container
 COPY . ${WORKDIR}
 
 # Run the build command to create the production-ready files
-RUN npm run build
+RUN npm run build --configuration=production
 
-# --- Schritt 2: Produktions-Server ---
+# ==========================================
+# STAGE 2: Serve the App with Nginx
+# ==========================================
+
 # nginx - deploy the built files with nginx
-FROM nginx:stable-alpine-slim
+FROM nginx:alpine
 
-# Copy the app from the build stage to the Nginx directory
+# Add Nginx Configuration for Angular Routing
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy the app from the build stage 1 to the Nginx directory
 COPY --from=builder /app/dist/angular-conduit /usr/share/nginx/html
 
 # Expose port 80 to access the frontend

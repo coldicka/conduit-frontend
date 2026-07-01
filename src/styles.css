@@ -1,1 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+/* BASE UI */
+
+:root {
+  --card: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --soft: rgba(0, 0, 0, 0.04);
+  --text: #1c1c1c;
+  --muted: #6b6b6b;
+}
+
+body {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial;
+  background: #e2f2f4;
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 900px;
+  padding: 1rem 20px;
+}
+
+/* NAVBAR */
+.navbar {
+    background: rgba(255,255,255,0.8);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  color: var(--text);
+}
+
+.nav.navbar-nav {
+line-height: 1.2;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.navbar .nav-item {
+  list-style: none;
+}
+
+.navbar .nav-link {
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.navbar .nav-link:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* home-page */
+.home-page {
+    padding: 1.5rem 0;
+}
+/* BUTTONS */
+
+.btn {
+  border-radius: 999px;
+  font-size: 13px;
+  padding: 6px 12px;
+}
+
+.btn-outline-secondary,
+.btn-outline-danger {
+  border-color: var(--border);
+}
+
+/* COMMENT BOX */
+
+.comment-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.comment-form textarea {
+  border: none;
+  font-size: 15px;
+  background: transparent;
+  resize: none;
+}
+
+.comment-form textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
