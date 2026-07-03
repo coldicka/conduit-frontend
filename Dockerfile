@@ -8,13 +8,13 @@ FROM node:20 AS builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json in the container to install dependencies
-COPY package*.json  ${WORKDIR}
+COPY package*.json  .
 
 # Install dependencies
 RUN npm install
 
 # Copy the project files rest into the container
-COPY . ${WORKDIR}
+COPY . .
 
 # Run the build command to create the production-ready files
 RUN npm run build --configuration=production
