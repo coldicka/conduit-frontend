@@ -16,8 +16,8 @@ RUN npm install
 # Copy the project files rest into the container
 COPY . .
 
-# Run the build command to create the production-ready files
-RUN npm run build --configuration=production
+# Run the build command
+RUN npm run build
 
 # ==========================================
 # STAGE 2: Serve the App with Nginx
